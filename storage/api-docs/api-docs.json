@@ -1,0 +1,175 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Shortened URLs API",
+        "description": "API for creating, listing, and managing shortened URLs",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/shorten": {
+            "post": {
+                "tags": [
+                    "Endpoints"
+                ],
+                "summary": "Create a shortened URL",
+                "operationId": "65ab2d94421361379dab8f5fc62dfad2",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "original_url": {
+                                        "description": "The original URL to shorten",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "URL shortened successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "short_code": {
+                                            "description": "Generated short code",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid URL"
+                    }
+                }
+            }
+        },
+        "/api/redirect/{short_code}": {
+            "get": {
+                "tags": [
+                    "Endpoints"
+                ],
+                "summary": "Redirect to the original URL",
+                "operationId": "dc1d1f498ded617eb46330bb984e707b",
+                "parameters": [
+                    {
+                        "name": "short_code",
+                        "in": "path",
+                        "description": "Short code to redirect",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "302": {
+                        "description": "Redirection to the original URL"
+                    },
+                    "404": {
+                        "description": "Short code not found"
+                    }
+                }
+            }
+        },
+        "/api/urls": {
+            "get": {
+                "tags": [
+                    "Endpoints"
+                ],
+                "summary": "Get all shortened URLs",
+                "operationId": "5d88e86f9903c9e1855239a4edd47c24",
+                "responses": {
+                    "200": {
+                        "description": "List of shortened URLs",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ShortUrl"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/urls/{id}": {
+            "delete": {
+                "tags": [
+                    "Endpoints"
+                ],
+                "summary": "Delete a shortened URL",
+                "operationId": "581cddee617271cf91544311167ae038",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the URL to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "URL deleted successfully"
+                    },
+                    "404": {
+                        "description": "URL not found"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ShortUrl": {
+                "title": "ShortUrl",
+                "description": "Schema for a shortened URL",
+                "properties": {
+                    "id": {
+                        "description": "ID of the shortened URL",
+                        "type": "integer"
+                    },
+                    "short_code": {
+                        "description": "Shortened code for the URL",
+                        "type": "string"
+                    },
+                    "original_url": {
+                        "description": "The original URL",
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "description": "Timestamp of when the URL was created",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "description": "Timestamp of when the URL was last updated",
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Endpoints",
+            "description": "All API routes for shortened URLs"
+        }
+    ]
+}
