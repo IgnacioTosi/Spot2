@@ -2,13 +2,15 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import API_LOCALHOST from "../../api/api";
+
 function ShortenUrl() {
     const [url, setUrl] = useState("");
     const navigate = useNavigate();
 
     const createUrl = async () => {
         try {
-            await axios.post("http://127.0.0.1:8000/api/shorten", {
+            await axios.post(`${API_LOCALHOST}/api/shorten`, {
                 original_url: url,
             });
             navigate("/");

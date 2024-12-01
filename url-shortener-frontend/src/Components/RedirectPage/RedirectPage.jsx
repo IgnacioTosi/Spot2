@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import API_LOCALHOST from "../../api/api";
+
 function RedirectPage() {
     const { code } = useParams();
     const [url, setUrl] = useState("");
@@ -13,7 +15,7 @@ function RedirectPage() {
     const fetchUrl = async () => {
         try {
             const response = await axios.get(
-                `http://127.0.0.1:8000/api/redirect/${code}`
+                `${API_LOCALHOST}/api/redirect/${code}`
             );
             setUrl(response.data.original_url);
         } catch (error) {

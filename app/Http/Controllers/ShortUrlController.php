@@ -84,6 +84,8 @@ class ShortUrlController extends Controller
     {
         $request->validate(['original_url' => 'required|url']);
 
+        Cache::forget('short_urls');
+
         // Generar un código único aleatorio
         do {
             $shortCode = Str::random(8);
@@ -93,8 +95,6 @@ class ShortUrlController extends Controller
             'original_url' => $request->original_url,
             'short_code' => $shortCode
         ]);
-
-        Cache::forget('short_urls');
 
         return response()->json(['short_code' => $shortCode], 201);
     }
@@ -162,9 +162,10 @@ class ShortUrlController extends Controller
      */
     public function destroy($id)
     {
+        Cache::forget('short_urls');
         $url = ShortUrl::findOrFail($id);
         $url->delete();
-        Cache::forget('short_urls');
+
         return response()->json(['message' => 'URL deleted successfully']);
     }
 }

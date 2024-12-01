@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import API_LOCALHOST from "../../api/api";
+
 function UrlsList() {
     const [urls, setUrls] = useState([]);
     const navigate = useNavigate();
@@ -12,7 +14,7 @@ function UrlsList() {
 
     const fetchUrls = async () => {
         try {
-            const response = await axios.get("http://127.0.0.1:8000/api/urls");
+            const response = await axios.get(`${API_LOCALHOST}/api/urls`);
             setUrls(response.data);
         } catch (error) {
             console.error("Error fetching URLs:", error);
@@ -21,7 +23,7 @@ function UrlsList() {
 
     const deleteUrl = async (id) => {
         try {
-            await axios.delete(`http://127.0.0.1:8000/api/urls/${id}`);
+            await axios.delete(`${API_LOCALHOST}/api/urls/${id}`);
             fetchUrls();
         } catch (error) {
             console.error("Error deleting URL:", error);
