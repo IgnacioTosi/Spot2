@@ -94,6 +94,8 @@ class ShortUrlController extends Controller
             'short_code' => $shortCode
         ]);
 
+        Cache::forget('short_urls');
+
         return response()->json(['short_code' => $shortCode], 201);
     }
 
@@ -162,6 +164,7 @@ class ShortUrlController extends Controller
     {
         $url = ShortUrl::findOrFail($id);
         $url->delete();
+        Cache::forget('short_urls');
         return response()->json(['message' => 'URL deleted successfully']);
     }
 }

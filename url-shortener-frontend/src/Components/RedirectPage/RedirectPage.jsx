@@ -13,7 +13,7 @@ function RedirectPage() {
     const fetchUrl = async () => {
         try {
             const response = await axios.get(
-                `http://3.138.122.174:8000/api/redirect/${code}`
+                `http://127.0.0.1:8000/api/redirect/${code}`
             );
             setUrl(response.data.original_url);
         } catch (error) {

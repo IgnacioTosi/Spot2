@@ -8,8 +8,7 @@
         "build": "vite build",
         "lint": "eslint .",
         "preview": "vite preview",
-        "test": "jest",
-        "test:watch": "jest --watch"
+        "test": "npx vitest --run --reporter verbose"
     },
     "dependencies": {
         "axios": "^1.7.7",
