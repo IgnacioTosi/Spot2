@@ -12,7 +12,9 @@ function UrlsList() {
 
     const fetchUrls = async () => {
         try {
-            const response = await axios.get("http://127.0.0.1:8000/api/urls");
+            const response = await axios.get(
+                "http://3.138.122.174:8000/api/urls"
+            );
             setUrls(response.data);
         } catch (error) {
             console.error("Error fetching URLs:", error);

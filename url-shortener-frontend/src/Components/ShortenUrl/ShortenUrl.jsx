@@ -8,7 +8,7 @@ function ShortenUrl() {
 
     const createUrl = async () => {
         try {
-            await axios.post("http://127.0.0.1:8000/api/shorten", {
+            await axios.post("http://3.138.122.174:8000/api/shorten", {
                 original_url: url,
             });
             navigate("/");
